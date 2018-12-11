@@ -1,36 +1,47 @@
 class DNA {
 
-  char[] genes = {' ', ' ', ' ', ' ', ' ', ' '};
+  char[] genes;
+  float fitness;
 
-  DNA(char[] a) {
-
+  DNA() {
+    genes = new char[num];
     for (int i = 0; i < target.length(); i++) {
-      genes[i] = a[i];
+      genes[i] = (char)random(97, 128);
     }
   }
-}
 
-char[] crossover(char[] a, char [] b) {
-  char[] result = {' ', ' ', ' ', ' ', ' ', ' '};
-  for (int i = 0; i < target.length(); i++) {
-    if (i % 2 == 0) {
-      result[i] = a[i];
+  void checkFitness() {
+    int score = 0;
+    float f = 0;
+    for (int i = 0; i < genes.length; i++) {
+      if (genes[i] == target.charAt(i)) {
+        score++;
+      }
     }
-    if (i % 2 !=0) {
-      result[i] = b[i];
-    }
+    fitness = float(score)/target.length();
   }
-  return result;
-}
 
-char[] mutate(char [] a) {
-  char[] result = {' ', ' ', ' ', ' ', ' ', ' '};
-  for (int i = 0; i< target.length(); i++) {
-    result[i] = a[i];
-    int coin = (int) random(0, 100);
-    if (coin <= mutation) {
-      result[i] = (char) int (random(97, 122));
+
+  DNA crossover(DNA partner) {
+    DNA result = new DNA();
+    for (int i = 0; i < genes.length; i++) {
+      if (i % 2 == 0) {
+        result.genes[i] = genes[i];
+      }
+      if (i % 2 !=0) {
+        result.genes[i] = partner.genes[i];
+      }
+    }
+    return result;
+  }
+
+  void mutate() {
+
+    for (int i = 0; i< genes.length; i++) {
+      int coin = (int) random(0, 100);
+      if (coin <= mutation) {
+        genes[i] = (char) int (random(97, 128));
+      }
     }
   }
-  return result;
 }

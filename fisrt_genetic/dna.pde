@@ -11,24 +11,24 @@ class DNA {
   }
 
   void checkFitness() {
-    int score = 0;
-    float f = 0;
+    float score = 0;
     for (int i = 0; i < genes.length; i++) {
       if (genes[i] == target.charAt(i)) {
         score++;
       }
     }
-    fitness = float(score)/target.length();
+    fitness = score/num;
   }
 
 
   DNA crossover(DNA partner) {
     DNA result = new DNA();
+    int breakPoint = (int) random(0, genes.length);
     for (int i = 0; i < genes.length; i++) {
-      if (i % 2 == 0) {
+      if (i < breakPoint) {
         result.genes[i] = genes[i];
       }
-      if (i % 2 !=0) {
+      if (i > breakPoint) {
         result.genes[i] = partner.genes[i];
       }
     }

@@ -6,7 +6,7 @@ class DNA {
   DNA() {
     genes = new char[num];
     for (int i = 0; i < target.length(); i++) {
-      genes[i] = (char)random(97, 128);
+      genes[i] = (char)random(32, 128);
     }
   }
 
@@ -23,12 +23,13 @@ class DNA {
 
   DNA crossover(DNA partner) {
     DNA result = new DNA();
-    int breakPoint = (int) random(0, genes.length);
+    //int breakPoint = (int) random(0, genes.length);
     for (int i = 0; i < genes.length; i++) {
-      if (i < breakPoint) {
+      int coin = (int) random(0, 2);
+      if (coin == 0) {
         result.genes[i] = genes[i];
       }
-      if (i > breakPoint) {
+      if (coin == 1) {
         result.genes[i] = partner.genes[i];
       }
     }
@@ -40,7 +41,7 @@ class DNA {
     for (int i = 0; i< genes.length; i++) {
       int coin = (int) random(0, 100);
       if (coin <= mutation) {
-        genes[i] = (char) int (random(97, 128));
+        genes[i] = (char) int (random(32, 128));
       }
     }
   }
